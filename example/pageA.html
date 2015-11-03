@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Page A</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../SyncMessage.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('#sendMessage').on('click', function(){
+			var syncMessage = new SyncMessage();
+			var syncMessageRequestObject = syncMessage.syncMessageRequestInit($('#responderWindowIframe')[0].contentWindow, '*', window);
+
+			// Send postMessage to Window B
+			var syncMessageRequest = syncMessageRequestObject.postMessageRequest({
+			    action: 'yourAction',
+			    data: {}
+			});
+
+			// Do something on resolution of syncMessageRequest
+			syncMessageRequest.done(function(data){
+			    console.log(data);
+				$('#messageOutput').html(JSON.stringify(data, null, 4));
+			});
+		});
+	});
+	</script>
+
+	<style type="text/css">
+	pre, iframe { border: 1px solid blue; }
+	pre {min-height: 100px;}
+	</style>
+</head>
+<body>
+	<h3>Page A</h3>
+	<pre id="messageOutput"></pre>
+	<button id="sendMessage">Get Items</button>
+
+	<h3>Page B embedded in Iframe</h3>
+	<iframe id="responderWindowIframe" src="pageB.html" width="500" height="500"></iframe>
+</body>
+</html>

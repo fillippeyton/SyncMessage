@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Page B</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../SyncMessage.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var items = 5;
+		$('#messageOutput').html('Number of Items: ' + items);
+
+		var syncMessage = new SyncMessage();
+		syncMessage.syncMessageResponseInit(window, '*', window.parent, function(){
+			return items;
+		});
+
+	});
+	</script>
+</head>
+<body>
+	<h3>Page B</h3>
+	<pre id="messageOutput"></pre>
+</body>
+</html>
