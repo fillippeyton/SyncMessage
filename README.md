@@ -41,3 +41,4 @@ syncMessage.syncMessageResponseInit(responderWindow, requesterWindowOrigin, requ
 ### Possible Enhancements
 * Deferred object returned from `syncMessageResponseInit`
 * Dynamic merging of original postMessage message and data returned from responder window
+* Expand functionality to include single directional messages as well
