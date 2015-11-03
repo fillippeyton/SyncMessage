@@ -3,6 +3,7 @@ A way to syncronously send/capture postMessages. This script was created primari
 
 ### Requirements
 In order for this script to work, Jquery is needed. Both windows that are communicating require this script, but need a different initialization in order for bidirectional communication to work. Also, I've structured the postMessage's message with an object. The structure is as follows:
+```
 var message = {
 	action: 'actionName', // developer-defined name describing the postMessage
 	data: { // any number/type of object properties to pass the target window
@@ -11,6 +12,7 @@ var message = {
 		propertyC: {}
 	}
 }
+```
 
 SyncMessage prepends a keyword, as well as appends a guid to the `action` in order to tell that the postMessage was send/received by SyncMessage.
 
