@@ -53,9 +53,9 @@ var SyncMessage = function(){
         // Retrieve, then send
         $(_SyncMessage.responseWindow).on('message onmessage', function(){
             if(event.data.action.indexOf(_SyncMessage.actionKeyword) > -1){
-                // Needs to be able to use callback or deferred when
-                // to return/send new postMessage, to prevent returning before
-                // getting data/running functionality
+                // Allow object of actionName:dataFunctionReference
+                // Amend check in message handler to loop through object and 
+                // match action vs object of actions
 
                 event.data.data.returnObject = returnCallback();
 
