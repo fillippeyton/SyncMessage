@@ -5,13 +5,27 @@
 	<script type="text/javascript" src="../SyncMessage.js"></script>
 	<script type="text/javascript">
 	$(function(){
-		$('#sendMessage').on('click', function(){
-			var syncMessage = new SyncMessage();
-			var syncMessageRequestObject = syncMessage.syncMessageRequestInit($('#responderWindowIframe')[0].contentWindow, '*', window);
+		var syncMessage = new SyncMessage();
+		var syncMessageRequestObject = syncMessage.syncMessageRequestInit($('#responderWindowIframe')[0].contentWindow, '*', window);
 
+		$('#getItems').on('click', function(){
 			// Send postMessage to Window B
 			var syncMessageRequest = syncMessageRequestObject.postMessageRequest({
-			    action: 'yourAction',
+			    action: 'getItems',
+			    data: {}
+			});
+
+			// Do something on resolution of syncMessageRequest
+			syncMessageRequest.done(function(data){
+			    console.log(data);
+				$('#messageOutput').html(JSON.stringify(data, null, 4));
+			});
+		});
+
+		$('#getName').on('click', function(){
+			// Send postMessage to Window B
+			var syncMessageRequest = syncMessageRequestObject.postMessageRequest({
+			    action: 'getName',
 			    data: {}
 			});
 
@@ -32,7 +46,8 @@
 <body>
 	<h3>Page A</h3>
 	<pre id="messageOutput"></pre>
-	<button id="sendMessage">Get Items</button>
+	<button id="getItems">Get Items</button>
+	<button id="getName">Get Name</button>
 
 	<h3>Page B embedded in Iframe</h3>
 	<iframe id="responderWindowIframe" src="pageB.html" width="500" height="500"></iframe>

@@ -6,11 +6,22 @@
 	<script type="text/javascript">
 	$(function(){
 		var items = 5;
-		$('#messageOutput').html('Number of Items: ' + items);
+		var name = 'Foo';
+		$('#messageOutput').html('Name: ' + name + '<br/>' +
+								 'Number of Items: ' + items);
+
+		function getItems(){
+			return items;
+		}
+
+		function getName(){
+			return name;
+		}
 
 		var syncMessage = new SyncMessage();
-		syncMessage.syncMessageResponseInit(window, '*', window.parent, function(){
-			return items;
+		syncMessage.syncMessageResponseInit(window, '*', window.parent, {
+			'getItems': getItems,
+			'getName': getName,
 		});
 
 	});

@@ -45,19 +45,18 @@ var SyncMessage = function(){
         }
     }
 
-    _SyncMessage.syncMessageResponseInit = function(responseWindow, responseOrigin, requestWindow, returnCallback){
+    _SyncMessage.syncMessageResponseInit = function(responseWindow, responseOrigin, requestWindow, actions){
         _SyncMessage.responseWindow = responseWindow;
         _SyncMessage.responseOrigin = responseOrigin;
         _SyncMessage.requestWindow = requestWindow;
 
         // Retrieve, then send
         $(_SyncMessage.responseWindow).on('message onmessage', function(){
-            if(event.data.action.indexOf(_SyncMessage.actionKeyword) > -1){
-                // Allow object of actionName:dataFunctionReference
-                // Amend check in message handler to loop through object and 
-                // match action vs object of actions
-
-                event.data.data.returnObject = returnCallback();
+            var actionName = event.data.action.split('_')[1];
+            if(event.data.action.indexOf(_SyncMessage.actionKeyword) > -1 &&
+                actions.hasOwnProperty(actionName)){
+                
+                event.data.data.returnObject = actions[actionName]();
 
                 _SyncMessage.requestWindow.postMessage(event.data, _SyncMessage.responseOrigin);
             }
