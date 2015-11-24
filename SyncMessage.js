@@ -1,3 +1,9 @@
+/**
+  * SyncMessage
+  * A Javascript library for syncronizing postMessage requests
+  * Author: Fillip Peyton (fillippeyton@gmail.com)
+  */
+
 var SyncMessage = function(){
     _SyncMessage = this;
     _SyncMessage.actionKeyword = 'SyncMessage';
